@@ -1,6 +1,7 @@
 import {restaurantImage } from './utils/constants'
 const RestaurantCard = (props) =>{
-    const { name , cuisines,avgRating} = props.resData.data
+    console.log(props,"rops values")
+    const { name , cuisines,avgRating} = props.resData
     return(
         <div className="res-card" style={{ backgroundColor: "#f0f0f0"}}>
             <img alt="res-logo" className="res-logo"
