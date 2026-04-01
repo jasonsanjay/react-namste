@@ -1,6 +1,5 @@
 import {restaurantImage } from './utils/constants'
 const RestaurantCard = (props) =>{
-    console.log(props,"rops values")
     const { name , cuisines,avgRating} = props.resData
     return(
         <div className="res-card" style={{ backgroundColor: "#f0f0f0"}}>
@@ -8,7 +7,7 @@ const RestaurantCard = (props) =>{
             src= {restaurantImage}/>
             <h3>{name}</h3>
             <h4>{cuisines.join(", ")}</h4>
-            <h4>{avgRating}</h4>
+            <h4>{avgRating} stars</h4>
 
         </div>
     )

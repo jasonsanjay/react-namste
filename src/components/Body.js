@@ -30,19 +30,15 @@ const Body = () => {
     const [filteredResto,setFilteredResto] = useState([]);
 
     const [search,setSearch] = useState("");
-    console.log("caliinfbefore")
     useEffect(()=>{
-        console.log("inside use effect <<")
         fetchData();
 
     },[])
 
     
     const fetchData = async() => {
-        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9405997&lng=77.5737633&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
+        const data = await fetch("https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9405997&lng=77.5737633&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
         const json= await data.json();
-        console.log(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
-            ,"json vales")
             setListOfRestaurants(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
             setFilteredResto(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
         }
@@ -50,23 +46,18 @@ const Body = () => {
     return listOfRestaurants.length == 0 ? <div>Loading</div> : (
         
         <div className="body">
-            {console.log("render body")}
             <div className="filter">
                 <div className="search">
                     <input type="text"className="search-box" value={search} onChange={(e)=>{setSearch(e.target.value)}} />
                     <button className="btn-search" onClick={()=>{
-                        console.log("on click search called ")
                         const searchList = listOfRestaurants.filter((ele) => ele.info.name.toLowerCase().includes(search.toLowerCase()))
-                        console.log(searchList,"search values")
                         setFilteredResto(searchList);
                     }} >search</button>
                 </div>
                 <button className="filter-btn" onClick={()=>{
-                    console.log("click event")
                     //write the filter logic
                     const filteredList = listOfRestaurants.filter((ele) => ele.data.avgRating > 4);
                     setFilteredResto(filteredList);
-                    console.log(listOfRestaurants,"list od resto filtered");
                 }} >Top rated restaurant</button>
             </div>
             <div className="res-container">
