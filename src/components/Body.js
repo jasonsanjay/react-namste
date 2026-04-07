@@ -1,7 +1,7 @@
 import RestaurantCard from "../RestaurantCard";
 import { useState,useEffect } from "react";
 
-
+import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () => {
     let listOfRestaurantsinJs = [
         {
@@ -42,6 +42,12 @@ const Body = () => {
             setListOfRestaurants(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
             setFilteredResto(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
         }
+
+        const onlineStatus = useOnlineStatus();
+        console.log(onlineStatus,"<<<onlineStatus>>>")
+
+        if(onlineStatus === false) return <h1>looks like you are offline please check the interent!</h1>
+        
 
     return listOfRestaurants.length == 0 ? <div>Loading</div> : (
         
