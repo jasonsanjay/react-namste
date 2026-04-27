@@ -2,10 +2,14 @@ import { LOGO } from "../utils/constants";
 import { useEffect, useState ,Link} from "react";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { UseSelector, useSelector } from "react-redux";
 
  const Header = () =>{
     const [btnName,setBtnName] = useState("Login");
     const onlineStatus = useOnlineStatus();
+
+    //subscribing to the store using the selector
+    const cartItems = useSelector((store) => store.cart.items)
 
     useEffect(()=>{
         console.log("useEffect Called !")
@@ -28,7 +32,7 @@ import useOnlineStatus from "../utils/useOnlineStatus";
                     <li>
                       <Link to="/contact">  Contact Us</Link>
                        </li>
-                    <li>Cart</li>
+                    <li>Cart -  ({cartItems.length} items) </li>
                     {/* <li> */}
                         <button className="login" onClick={()=>{
                            btnName === "Login" ? setBtnName("Logout") : setBtnName("Login");

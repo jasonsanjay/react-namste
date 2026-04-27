@@ -8,16 +8,20 @@ import { createBrowserRouter , RouterProvider,Outlet } from "react-router";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 
 const About = lazy(()=> import('./components/About'))
 const Applayout = () => {
     return(
+        <Provider store={appStore}>
         <div className="app">
             <Header />
             {/* <Body /> */}
             <Outlet/>
             <Footer/>
         </div>
+        </Provider>
     )
 } 
 

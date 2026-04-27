@@ -15,3 +15,18 @@ const jsxHeading = ( <h1 className="heading">
 
 
 episode 4
+
+
+const appRouter = createBrowserRouter[{
+    path:
+}]
+
+
+
+Redux Toolkit
+-Install @reduxjs/toolkit and react-redux
+- Build our store
+- Connect our store to our app
+- Slice(Cart slice)
+- Dispatch(Action)
+- selector

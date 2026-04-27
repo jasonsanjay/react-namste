@@ -2,29 +2,15 @@ import RestaurantCard from "../RestaurantCard";
 import { useState,useEffect } from "react";
 
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
 const Body = () => {
-    let listOfRestaurantsinJs = [
-        {
-            data:{
-                id:"1",
-                name:"KFC",
-                cuisines:["Burgers","Biryani","American","Snacks","FastFood"],
-                costForTwo:4000,
-                deleveryTime:36,
-                avgRating:"3.8"
-            }
-        },
-        {
-            data:{
-                id:"2",
-                name:"Megana",
-                cuisines:["Burgers","Biryani","American","Snacks","FastFood"],
-                costForTwo:4000,
-                deleveryTime:36,
-                avgRating:"4.2"
-            }
-        }
-    ]
+    const dispatch = useDispatch();
+    const handleAddItems = () =>{   
+        dispatch(addItem("Coke"))
+        console.log("clicked!")
+    
+    }
     const [listOfRestaurants,setListOfRestaurants] = useState([]);
 
     const [filteredResto,setFilteredResto] = useState([]);
@@ -39,6 +25,7 @@ const Body = () => {
     const fetchData = async() => {
         const data = await fetch("https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9405997&lng=77.5737633&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
         const json= await data.json();
+        console.log(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants,"list of rest")
             setListOfRestaurants(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
             setFilteredResto(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
         }
@@ -60,11 +47,14 @@ const Body = () => {
                         setFilteredResto(searchList);
                     }} >search</button>
                 </div>
-                <button className="filter-btn" onClick={()=>{
-                    //write the filter logic
-                    const filteredList = listOfRestaurants.filter((ele) => ele.data.avgRating > 4);
-                    setFilteredResto(filteredList);
-                }} >Top rated restaurant</button>
+                <button className="filter-btn"
+                onClick={handleAddItems}
+                //  onClick={()=>{
+                //     //write the filter logic
+                //     const filteredList = listOfRestaurants.filter((ele) => ele.data.avgRating > 4);
+                //     setFilteredResto(filteredList);
+                // }}
+                 >Top rated restaurant</button>
             </div>
             <div className="res-container">
                 { filteredResto.map((resto,index)=>(
